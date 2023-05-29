@@ -1,5 +1,6 @@
 // Core
 
+import { CommentsFormProvider } from './lib/commentsFormContext';
 import { Feed } from './pages/Feed';
 
 // Components
@@ -7,9 +8,9 @@ import { Feed } from './pages/Feed';
 export const App = () => {
     return (
         <>
-
-            <Feed />
-
+            <CommentsFormProvider>
+                <Feed />
+            </CommentsFormProvider>
         </>
     );
 };

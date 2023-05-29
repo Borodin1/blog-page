@@ -1,6 +1,6 @@
 // Core
 import React from 'react';
-import { createRoot } from 'react-dom/client';
+import { render } from 'react-dom';
 
 // Styles
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,8 +11,9 @@ import './theme/init.scss';
 // App
 import { App } from './App';
 
-createRoot(document.getElementById('root')).render(
+render(
     <>
         <App />
     </>,
+    document.getElementById('root'),
 );
