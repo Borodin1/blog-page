@@ -1,11 +1,16 @@
 // Core
 import React from 'react';
 
-// mock-data
-import comments from '../../mock-data/comments.json';
+// hooks
+import { useComments } from '../../hooks/useComments';
+
+// helpers
+import { fetchify } from '../../helpers/fetchify';
 
 export const RecentComments = () => {
-    const commentsJSX = comments.map(({
+    const { data, isFetched } = useComments();
+
+    const commentsJSX = data.map(({
         hash, body, author, created,
     }) => {
         return (
@@ -22,7 +27,7 @@ export const RecentComments = () => {
         <div className = 'most-recent-comments'>
             <h1 className = 'title'>Популярные комментарии</h1>
             <section>
-                { commentsJSX }
+                { fetchify(isFetched, commentsJSX) }
             </section>
         </div>
     );

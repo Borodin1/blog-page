@@ -2,6 +2,9 @@
 import axios from 'axios';
 
 // Instruments
+import wait  from 'wait';
+
+// Instruments
 import { AUTH_URL, FEED_URL } from './config';
 
 export const api = {
@@ -52,8 +55,9 @@ export const api = {
                     Authorization: this.token,
                 },
             });
+            await wait(3000);
 
-            return data;
+            return data?.data;
         },
         async create(post) {
             const { data } = await axios.post(FEED_URL,
@@ -104,7 +108,9 @@ export const api = {
         async getComments() {
             const { data } = await axios.get(`${FEED_URL}/comments`);
 
-            return data;
+            await wait(3000);
+
+            return data.data;
         },
         async getPostById(postHash) {
             const { data } = await axios.get(`${FEED_URL}/${postHash}`);
