@@ -1,16 +1,23 @@
 // Core
+import { Route, Routes } from 'react-router-dom';
 
-import { CommentsFormProvider } from './lib/commentsFormContext';
+// pages
 import { Feed } from './pages/Feed';
+import { ProfilePage } from './pages/ProfilePage';
+import { PostCommentsPage } from './pages/PostCommentsPage';
 
-// Components
 
 export const App = () => {
     return (
         <>
-            <CommentsFormProvider>
-                <Feed />
-            </CommentsFormProvider>
+            <Routes>
+                <Route path = '/' element = { <Feed /> } />
+                <Route path = '/all-topics' element = { <Feed /> } />
+                <Route path = '/feed' element = { <Feed /> } />
+                <Route path = '/feed/:id' element = { <PostCommentsPage /> } />
+
+                <Route path = '/profile' element = { <ProfilePage /> } />
+            </Routes>
         </>
     );
 };

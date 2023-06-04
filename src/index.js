@@ -1,6 +1,7 @@
 // Core
 import React from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 // Styles
 import 'react-toastify/dist/ReactToastify.css';
@@ -13,12 +14,17 @@ import { QueryClientProvider } from 'react-query';
 
 import { App } from './App';
 import { queryClient } from './lib/queryClient';
+import { CommentsFormProvider } from './lib/commentsFormContext';
 
-render(
+createRoot(document.getElementById('root')).render(
     <>
         <QueryClientProvider client = { queryClient }>
-            <App />
+            <CommentsFormProvider>
+                <Router>
+                    <App />
+                </Router>
+            </CommentsFormProvider>
         </QueryClientProvider>
     </>,
-    document.getElementById('root'),
 );
+

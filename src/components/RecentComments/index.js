@@ -1,5 +1,7 @@
 // Core
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 
 // hooks
 import { useComments } from '../../hooks/useComments';
@@ -11,14 +13,16 @@ export const RecentComments = () => {
     const { data, isFetched } = useComments();
 
     const commentsJSX = data.map(({
-        hash, body, author, created,
+        hash, body, author, created, post,
     }) => {
+        console.log(post);
+
         return (
             <div className = 'comment' key = { hash }>
                 <p className = 'name'>{ author.name }</p>
                 <time>{ created }</time>
                 <p className = 'body'>{ body }</p>
-                <a href = '#'> Больше комментариев к посту</a>
+                <Link to = { `/feed/${post.hash}` }> Больше комментариев к посту</Link>
             </div>
         );
     });

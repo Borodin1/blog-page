@@ -1,4 +1,6 @@
+// Core
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const Navigation = () => {
     return (
@@ -17,11 +19,11 @@ export const Navigation = () => {
                 </div>
                 Chuck Norris
             </div>
-            <a  className = 'navigation-item' href = '#'> Профиль </a>
-            <a
+            <Link  className = 'navigation-item' to = '/profile'> Профиль </Link>
+            <Link
                 aria-current = 'page'
                 className = 'navigation-item active'
-                href = '#'> Стена </a>
+                to = '/'> Стена </Link>
             <button className = 'logout'>Выйти</button>
         </div>
     );

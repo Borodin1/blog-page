@@ -5,4 +5,6 @@ export const fetchify = (isFetched, content) => {
     if (content) {
         return content;
     }
+
+    return null;
 };
