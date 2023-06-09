@@ -1,5 +1,6 @@
 // Components
 import { Navigation } from '../../components/Navigation';
+import { Footer } from '../../components/Footer';
 import { Profile } from '../../components/Profile';
 
 export const ProfilePage = () => {
@@ -9,8 +10,10 @@ export const ProfilePage = () => {
                 <div className = 'container'>
                     <Navigation />
                     <Profile />
+
                 </div>
             </div>
+            <Footer />
         </main>
     );
 };

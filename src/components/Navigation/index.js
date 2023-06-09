@@ -1,8 +1,11 @@
 // Core
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useGetProfileInfo } from '../../hooks/useGetProfileInfo';
 
 export const Navigation = () => {
+    const { data:profileInfo } = useGetProfileInfo();
+
     return (
         <div>
             <div className = 'navigation-profile'>
@@ -17,7 +20,7 @@ export const Navigation = () => {
                         </div>
                     </div>
                 </div>
-                Chuck Norris
+                { profileInfo?.data?.name }
             </div>
             <Link  className = 'navigation-item' to = '/profile'> Профиль </Link>
             <Link

@@ -15,8 +15,6 @@ export const RecentComments = () => {
     const commentsJSX = data.map(({
         hash, body, author, created, post,
     }) => {
-        console.log(post);
-
         return (
             <div className = 'comment' key = { hash }>
                 <p className = 'name'>{ author.name }</p>

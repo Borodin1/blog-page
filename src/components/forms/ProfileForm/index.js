@@ -1,29 +1,70 @@
 // Core
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+// elements
+import { useForm } from 'react-hook-form';
+import { useEffect } from 'react';
+import { Input } from '../../elements/input';
+
+// hooks
+import { useGetProfileInfo } from '../../../hooks/useGetProfileInfo';
+import { useUpdateProfile } from '../../../hooks/useUpdateProfile';
+
+// schema
+import { schema } from './config';
 
 export const ProfileForm = () => {
+    const navigate = useNavigate();
+
+    const mutation = useUpdateProfile();
+
+    const { data:profileInfo } = useGetProfileInfo();
+
+    const form = useForm({
+        mode:     'onSubmit',
+        resolver: yupResolver(schema),
+    });
+
+    const onSubmit = form.handleSubmit(async (profileUpdate) => {
+        await mutation.mutateAsync(profileUpdate);
+
+        form.reset();
+    });
+    const userData = {
+        firstName: profileInfo?.data?.name.split(' ')?.[ 0 ],
+        lastName:  profileInfo?.data?.name.split(' ')?.[ 1 ],
+    };
+
+    useEffect(() => {
+        if (mutation.isSuccess) {
+            navigate('/feed');
+        }
+    }, [mutation.isSuccess]);
+
     return (
-        <form className = 'form'>
+        <form className = 'form' onSubmit = { onSubmit }>
             <div className = 'wrapper'>
                 <div>
-                    <h1>Привет, Chuck Norris</h1>
+                    <h1>{ `Привет, ${userData?.firstName} ${userData?.lastName}` }</h1>
                     <img
-                        src = 'https://placeimg.com/256/256/animals'
+                        src = { profileInfo?.data?.avatar }
                         alt = 'avatar'
                         className = 'navigation-avatar' />
-                    <label>
-                        <div>
-                            <span className = 'error-message'></span>
-                            <input type = 'text' placeholder = 'Имя' />
-                        </div>
-                    </label>
-                    <label>
-                        <div>
-                            <span className = 'error-message'></span>
-                            <input type = 'text' placeholder = 'Фамилия' />
-                        </div>
-                        <button className = 'loginSubmit' type = 'submit'>Обновить профиль </button>
-                    </label>
+
+                    <Input
+                        type = 'text'
+                        error = { form.formState.errors?.firstName }
+                        register = { form.register('firstName') }
+                        placeholder = 'Имя' />
+
+                    <Input
+                        type = 'text'
+                        error = { form.formState.errors?.lastName }
+                        register = { form.register('lastName') }
+                        placeholder = 'Фамилия' />
+
+                    <button className = 'loginSubmit' type = 'submit'>Обновить профиль </button>
                 </div>
                 <Link to = '/new-password'>
                     Сменить пароль
