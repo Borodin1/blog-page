@@ -1,18 +1,22 @@
 // Core
+import { observer } from 'mobx-react-lite';
+
+// hooks
 import { useContext } from 'react';
 
 // Instrumets
-import { Context } from '../../../lib/commentsFormContext';
+import { Context } from '../../../lib/storeContext';
 
-export const CommentsForm = ({ children, avatar, id }) => {
-    const [isCommentsOpen, setCommentsOpen] = useContext(Context);
+export const CommentsForm = observer(({ children, avatar, id }) => {
+    const { commentFormStore } = useContext(Context);
+    const { setPostId, selectedPostId } = commentFormStore;
 
     const handleClick = () => {
         event.preventDefault();
-        setCommentsOpen(false);
+        setPostId(false);
     };
 
-    if (id === isCommentsOpen) {
+    if (id === selectedPostId) {
         return (
             <>
                 <form className = 'commentForm'>
@@ -33,4 +37,4 @@ export const CommentsForm = ({ children, avatar, id }) => {
             </>
         );
     }
-};
+});

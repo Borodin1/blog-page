@@ -1,7 +1,9 @@
 import React, { useContext } from 'react';
 // Instruments
 import cx from 'classnames';
-import { Context } from '../../lib/commentsFormContext';
+import { observer } from 'mobx-react-lite';
+import { Context } from '../../lib/storeContext';
+
 
 // icons
 import { LikeIcon } from '../../theme/assets/like';
@@ -9,17 +11,18 @@ import { CommentIcon } from '../../theme/assets/comment';
 import { CommentsForm } from '../forms/CommentsForm';
 import { Comment } from '../Comment';
 
-export const Post = ({
+export const Post = observer(({
     hash, body, author, created, comments,
 }) => {
-    const [isCommentsOpen, setCommentsOpen] = useContext(Context);
+    const { commentFormStore } = useContext(Context);
+    const { setPostId, selectedPostId } = commentFormStore;
 
     const handleClick = () => {
-        setCommentsOpen(hash === isCommentsOpen ? '' : hash);
+        setPostId(hash === selectedPostId ? '' : hash);
     };
 
     const commentClasses = cx('comment', {
-        'comment-fill': hash === isCommentsOpen,
+        'comment-fill': hash === selectedPostId,
     });
 
     const commentsJSX = comments.map((comment) => {
@@ -53,4 +56,4 @@ export const Post = ({
             </CommentsForm>
         </section>
     );
-};
+});

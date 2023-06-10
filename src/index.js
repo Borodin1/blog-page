@@ -8,22 +8,29 @@ import 'react-toastify/dist/ReactToastify.css';
 import './theme/init.scss';
 
 // Instruments
+import { configure } from 'mobx';
 import { QueryClientProvider } from 'react-query';
-
-// App
-
-import { App } from './App';
 import { queryClient } from './lib/queryClient';
-import { CommentsFormProvider } from './lib/commentsFormContext';
+
+// Components
+import { App } from './App';
+
+configure({
+    enforceActions:             'always',
+    computedRequiresReaction:   true,
+    observableRequiresReaction: true,
+    reactionRequiresObservable: true,
+});
+
 
 createRoot(document.getElementById('root')).render(
     <>
         <QueryClientProvider client = { queryClient }>
-            <CommentsFormProvider>
-                <Router>
-                    <App />
-                </Router>
-            </CommentsFormProvider>
+
+            <Router>
+                <App />
+            </Router>
+
         </QueryClientProvider>
     </>,
 );
