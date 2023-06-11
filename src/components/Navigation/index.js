@@ -1,7 +1,9 @@
 // Core
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useGetProfileInfo } from '../../hooks/useGetProfileInfo';
+
+// hooks
+import { useGetProfileInfo } from '../../hooks';
 
 export const Navigation = () => {
     const { data:profileInfo } = useGetProfileInfo();

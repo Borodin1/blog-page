@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 
 // hooks
-import { useComments } from '../../hooks/useComments';
+import { useComments } from '../../hooks';
 
 // helpers
 import { fetchify } from '../../helpers/fetchify';

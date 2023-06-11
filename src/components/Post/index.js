@@ -1,8 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
+
 // Instruments
 import cx from 'classnames';
-import { observer } from 'mobx-react-lite';
-import { Context } from '../../lib/storeContext';
+
+// redux
+import { useDispatch, useSelector } from 'react-redux';
+import { getPostId } from '../../lib/redux/selectors/commentsForm';
+import { commentsFormActions } from '../../lib/redux/actions';
 
 
 // icons
@@ -11,14 +15,14 @@ import { CommentIcon } from '../../theme/assets/comment';
 import { CommentsForm } from '../forms/CommentsForm';
 import { Comment } from '../Comment';
 
-export const Post = observer(({
+export const Post = ({
     hash, body, author, created, comments,
 }) => {
-    const { commentFormStore } = useContext(Context);
-    const { setPostId, selectedPostId } = commentFormStore;
+    const dispatch = useDispatch();
+    const selectedPostId = useSelector(getPostId);
 
     const handleClick = () => {
-        setPostId(hash === selectedPostId ? '' : hash);
+        dispatch(commentsFormActions.setPostId(hash === selectedPostId ? '' : hash));
     };
 
     const commentClasses = cx('comment', {
@@ -56,4 +60,4 @@ export const Post = observer(({
             </CommentsForm>
         </section>
     );
-});
+};

@@ -10,10 +10,12 @@ import './theme/init.scss';
 // Instruments
 import { configure } from 'mobx';
 import { QueryClientProvider } from 'react-query';
+import { Provider } from 'react-redux';
 import { queryClient } from './lib/queryClient';
 
 // Components
 import { App } from './App';
+import { store } from './lib/redux/init/store';
 
 configure({
     enforceActions:             'always',
@@ -26,11 +28,11 @@ configure({
 createRoot(document.getElementById('root')).render(
     <>
         <QueryClientProvider client = { queryClient }>
-
-            <Router>
-                <App />
-            </Router>
-
+            <Provider store = { store }>
+                <Router>
+                    <App />
+                </Router>
+            </Provider>
         </QueryClientProvider>
     </>,
 );

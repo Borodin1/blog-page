@@ -10,7 +10,7 @@ import { Composer } from '../forms/Composer/index';
 import { fetchify } from '../../helpers';
 
 // hooks
-import { usePosts } from '../../hooks/usePosts';
+import { usePosts } from '../../hooks';
 
 export const Posts = () => {
     const { data, isFetched } = usePosts();

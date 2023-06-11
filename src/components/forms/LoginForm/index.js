@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 // hooks
-import { useLogin } from '../../../hooks/useLogin';
+import { useLogin } from '../../../hooks';
 
 // elements
 import { Input } from '../../elements/input';

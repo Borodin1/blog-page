@@ -1,5 +1,4 @@
-// Components
-
+// elements
 import { ProfileForm } from '../forms/ProfileForm';
 
 export const Profile = () => {

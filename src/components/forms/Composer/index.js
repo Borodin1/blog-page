@@ -1,5 +1,8 @@
+// Core
 import React from 'react';
-import { useGetProfileInfo } from '../../../hooks/useGetProfileInfo';
+
+// hooks
+import { useGetProfileInfo } from '../../../hooks';
 
 export const Composer = () => {
     const { data } = useGetProfileInfo();

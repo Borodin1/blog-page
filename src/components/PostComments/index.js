@@ -2,7 +2,7 @@
 import { Link, useParams } from 'react-router-dom';
 
 // hooks
-import { usePostDetails } from '../../hooks/usePostDetails';
+import { usePostDetails } from '../../hooks';
 
 // helpers
 import { fetchify } from '../../helpers';

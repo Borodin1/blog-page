@@ -1,19 +1,17 @@
 // Core
-import { observer } from 'mobx-react-lite';
 
-// hooks
-import { useContext } from 'react';
+// redux
+import { useDispatch, useSelector } from 'react-redux';
+import { getPostId } from '../../../lib/redux/selectors/commentsForm';
+import { commentsFormActions } from '../../../lib/redux/actions';
 
-// Instrumets
-import { Context } from '../../../lib/storeContext';
-
-export const CommentsForm = observer(({ children, avatar, id }) => {
-    const { commentFormStore } = useContext(Context);
-    const { setPostId, selectedPostId } = commentFormStore;
+export const CommentsForm = ({ children, avatar, id }) => {
+    const dispatch = useDispatch();
+    const selectedPostId = useSelector(getPostId);
 
     const handleClick = () => {
         event.preventDefault();
-        setPostId(false);
+        dispatch(commentsFormActions.setPostId(''));
     };
 
     if (id === selectedPostId) {
@@ -37,4 +35,4 @@ export const CommentsForm = observer(({ children, avatar, id }) => {
             </>
         );
     }
-});
+};

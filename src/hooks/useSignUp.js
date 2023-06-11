@@ -1,12 +1,16 @@
 // Core
 import { useMutation } from 'react-query';
-
-// api
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+// api
 import { api } from '../api';
 
+// redux
+import { authActions } from '../lib/redux/actions';
+
 export const useSignUp = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const mutation = useMutation((user) => {
@@ -16,6 +20,7 @@ export const useSignUp = () => {
     useEffect(() => {
         const token = mutation?.data;
         if (mutation.isSuccess && token) {
+            dispatch(authActions.setToken(token));
             localStorage.setItem('token', token);
             navigate('/feed');
         }

@@ -8,8 +8,7 @@ import { useEffect } from 'react';
 import { Input } from '../../elements/input';
 
 // hooks
-import { useGetProfileInfo } from '../../../hooks/useGetProfileInfo';
-import { useUpdateProfile } from '../../../hooks/useUpdateProfile';
+import { useGetProfileInfo, useUpdateProfile } from '../../../hooks';
 
 // schema
 import { schema } from './config';

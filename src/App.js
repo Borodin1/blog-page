@@ -1,7 +1,6 @@
 // Core
 import { Route, Routes } from 'react-router-dom';
-import { useContext, useEffect } from 'react';
-import { observer } from 'mobx-react-lite';
+import { useEffect } from 'react';
 import { Slide, ToastContainer, toast } from 'react-toastify';
 
 // pages
@@ -11,61 +10,44 @@ import { PostCommentsPage } from './pages/PostCommentsPage';
 import { SignUpPage } from './pages/SignUpPage';
 import { LoginPage } from './pages/LoginPage';
 
-// Instruments
-import { Context } from './lib/storeContext';
 
 // hooks
-import { useQualityAuth } from './hooks/useQualityAuth';
-import { useGetProfileInfo } from './hooks/useGetProfileInfo';
+import {
+    useQualityAuth,
+    useGetProfileInfo,
+    useErrorMessage,
+} from './hooks';
 
 
-export const App = observer(() => {
+export const App = () => {
     const { data } = useGetProfileInfo();
-    const { uiStore } = useContext(Context);
-    const { errorMessage, resetError } = uiStore;
-
     const { isSuccess } = useQualityAuth();
-    console.log(data);
+    useErrorMessage();
+
     useEffect(() => {
-        if (errorMessage) {
-            const notify = () => toast.error(errorMessage, {
-                position:        'top-right',
-                autoClose:       5000,
-                hideProgressBar: true,
-                closeOnClick:    true,
-                pauseOnHover:    true,
-                draggable:       true,
-                progress:        undefined,
-            });
+        setTimeout(() => {
+            if (isSuccess && data) {
+                toast.success(`Добро пожаловать,${data?.data?.name}`);
+            }
+        }, 1000);
+    }, [data]);
 
+    return (
+        <>
+            <ToastContainer newestOnTop transition = { Slide } />
 
-            notify();
+            <Routes>
+                <Route path = '/' element = { <Feed /> } />
+                <Route path = '/all-topics' element = { <Feed /> } />
 
-            resetError();
-        }
-        if (isSuccess) {
-            toast.success(`Добро пожаловать,${data?.data?.name}`);
-        }
-    }, [errorMessage, isSuccess]);
+                <Route path = '/feed' element = { <Feed /> } />
+                <Route path = '/feed/:id' element = { <PostCommentsPage /> } />
 
-    if (isSuccess) {
-        return (
-            <>
-                <ToastContainer newestOnTop transition = { Slide } />
+                <Route path = '/signUp' element = { <SignUpPage /> } />
+                <Route path = '/login' element = { <LoginPage /> } />
 
-                <Routes>
-                    <Route path = '/' element = { <Feed /> } />
-                    <Route path = '/all-topics' element = { <Feed /> } />
-
-                    <Route path = '/feed' element = { <Feed /> } />
-                    <Route path = '/feed/:id' element = { <PostCommentsPage /> } />
-
-                    <Route path = '/signUp' element = { <SignUpPage /> } />
-                    <Route path = '/login' element = { <LoginPage /> } />
-
-                    <Route path = '/profile' element = { <ProfilePage /> } />
-                </Routes>
-            </>
-        );
-    }
-});
+                <Route path = '/profile' element = { <ProfilePage /> } />
+            </Routes>
+        </>
+    );
+};
