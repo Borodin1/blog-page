@@ -38,6 +38,17 @@ export const api = {
                 },
             });
         },
+
+        async resetPassword(password) {
+            const { data } = await axios.post(`${AUTH_URL}/reset-password`, password, {
+                headers: {
+                    Authorization: `Bearer ${api.token}`,
+                },
+            });
+
+            return data;
+        },
+
         logout() {
             return fetch(`${AUTH_URL}/logout`, {
                 method:  'GET',

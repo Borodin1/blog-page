@@ -1,10 +1,10 @@
 // Core
 import { Link, useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
-
-// elements
 import { useForm } from 'react-hook-form';
 import { useEffect } from 'react';
+
+// elements
 import { Input } from '../../elements/input';
 
 // hooks
@@ -65,8 +65,8 @@ export const ProfileForm = () => {
 
                     <button className = 'loginSubmit' type = 'submit'>Обновить профиль </button>
                 </div>
-                <Link to = '/new-password'>
-                    Сменить пароль
+                <Link to = '/profile/new-password'>
+                    Сменить пароль →
                 </Link>
             </div>
         </form>
